@@ -471,6 +471,8 @@
     [data-theme="light"] .github-img-dark { display: none; }
     [data-theme="light"] .github-img-light { display: block; }
 
+
+
     /* ================================================================
        SKILLS SECTION
     ================================================================ */
@@ -694,6 +696,7 @@
       .about-grid { grid-template-columns: 1fr; gap: var(--space-xl); }
       .contact-grid { grid-template-columns: 1fr; }
       .github-stats-grid { grid-template-columns: 1fr; }
+
       .nav-links { display: none; }
       #hamburger { display: flex; }
     }
@@ -732,6 +735,7 @@
     <ul class="nav-links" id="nav-links" role="list">
       <li><a href="#achievements">Highlights</a></li>
       <li><a href="#about">About</a></li>
+      <li><a href="#github-stats" id="nav-github-stats">GitHub Activity</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#experience">Experience</a></li>
@@ -753,6 +757,7 @@
   <div id="mobile-nav" role="navigation" aria-label="Mobile navigation">
     <a href="#achievements">Highlights</a>
     <a href="#about">About</a>
+    <a href="#github-stats" id="mobile-nav-github-stats">GitHub Activity</a>
     <a href="#skills">Skills</a>
     <a href="#projects">Projects</a>
     <a href="#experience">Experience</a>
@@ -797,7 +802,7 @@
             </div>
 
             <p class="hero-headline">
-              B.Tech AI & DS student at KLH University (CGPA 9.5/10) and former AI/ML Intern at NIT Raipur — building production-grade AI systems, backend APIs, and full-stack applications.
+              Final Year B.Tech AI &amp; DS student at KLH University (CGPA 9.5/10) and former AI/ML Intern at NIT Raipur — building production-grade AI systems, scalable backend APIs, and full-stack applications.
             </p>
 
             <div class="hero-cta">
@@ -808,7 +813,7 @@
                 <i class="fas fa-download" aria-hidden="true"></i> Resume
               </a>
               <a href="#contact" class="btn btn-ghost">
-                <i class="fas fa-paper-plane" aria-hidden="true"></i> Hire Me
+                <i class="fas fa-paper-plane" aria-hidden="true"></i> Let's Connect
               </a>
             </div>
 
@@ -939,10 +944,10 @@
         <div class="about-grid">
           <div class="about-text" data-aos="fade-right" data-aos-duration="650">
             <p>
-              I am an <strong>AI and Full Stack Developer</strong> passionate about solving real-world problems using Artificial Intelligence, Machine Learning, and modern web technologies. I build scalable applications that combine intelligent automation with clean, intuitive user experiences.
+              I am an <strong>AI Engineer and Full Stack Developer</strong> passionate about solving real-world problems using Artificial Intelligence, Machine Learning, and modern web technologies. I build scalable applications that combine intelligent automation with clean, intuitive user experiences — and I'm actively seeking opportunities in <strong>Software Development, AI, Backend, and Full Stack</strong> roles.
             </p>
             <p>
-              Currently in my 3rd year of <strong>B.Tech in Artificial Intelligence & Data Science</strong> at KLH University, maintaining a <strong>CGPA of 9.5/10</strong>. My work spans computer vision, NLP, speech processing, and production full-stack systems.
+              <strong>Final Year B.Tech in Artificial Intelligence &amp; Data Science (2027 Batch)</strong> at KLH University, maintaining a <strong>CGPA of 9.5/10</strong>. My work spans computer vision, NLP, speech processing, and production full-stack systems.
             </p>
             <p>
               As an <strong>AI/ML Intern at NIT Raipur</strong>, I contributed to a speech analytics research project — building a real-time speaker diarization pipeline and a FastAPI REST service for automated meeting transcription that reduced manual note-taking time significantly.
@@ -1014,7 +1019,7 @@
         <p class="section-subtitle">Open-source contributions, streak, and most-used languages.</p>
 
         <div class="github-stats-grid" data-aos="fade-up" data-aos-duration="650">
-          <!-- Stats card - dark -->
+          <!-- Stats card -->
           <div class="github-stat-card">
             <img
               class="github-img-dark"
@@ -1023,6 +1028,7 @@
               width="500"
               height="200"
               loading="lazy"
+              onerror="handleGitStatsError()"
             />
             <img
               class="github-img-light"
@@ -1031,10 +1037,11 @@
               width="500"
               height="200"
               loading="lazy"
+              onerror="handleGitStatsError()"
             />
           </div>
 
-          <!-- Top languages - dark -->
+          <!-- Top languages -->
           <div class="github-stat-card">
             <img
               class="github-img-dark"
@@ -1043,6 +1050,7 @@
               width="500"
               height="200"
               loading="lazy"
+              onerror="handleGitStatsError()"
             />
             <img
               class="github-img-light"
@@ -1051,10 +1059,11 @@
               width="500"
               height="200"
               loading="lazy"
+              onerror="handleGitStatsError()"
             />
           </div>
 
-          <!-- Contribution graph - dark (full width) -->
+          <!-- Contribution graph (full width) -->
           <div class="github-stat-card github-contrib">
             <img
               class="github-img-dark"
@@ -1063,6 +1072,7 @@
               width="1100"
               height="200"
               loading="lazy"
+              onerror="handleGitStatsError()"
             />
             <img
               class="github-img-light"
@@ -1071,11 +1081,14 @@
               width="1100"
               height="200"
               loading="lazy"
+              onerror="handleGitStatsError()"
             />
           </div>
         </div>
       </div>
     </section>
+
+
 
     <!-- ==================== SKILLS ==================== -->
     <section id="skills" aria-labelledby="skills-title">
@@ -1631,7 +1644,7 @@
     //  TYPING ANIMATION
     // ================================================================
     const typingEl = document.getElementById('typing-text');
-    const roles = ['AI Developer', 'Full Stack Developer', 'ML Engineer', 'Backend Engineer', 'Problem Solver'];
+    const roles = ['AI Engineer', 'Full Stack Developer', 'Backend Developer', 'Machine Learning Engineer'];
     let ri = 0, ci = 0, deleting = false;
 
     function typeLoop() {
@@ -1697,6 +1710,24 @@
         setTimeout(() => { mobileNav.style.display = 'none'; }, 300);
       });
     });
+
+    // ================================================================
+    //  GITHUB STATS API FAILSAFE
+    // ================================================================
+    function handleGitStatsError() {
+      const section = document.getElementById('github-stats');
+      if (section) {
+        section.style.display = 'none';
+      }
+      const navLink = document.getElementById('nav-github-stats');
+      if (navLink && navLink.parentElement) {
+        navLink.parentElement.style.display = 'none';
+      }
+      const mobileNavLink = document.getElementById('mobile-nav-github-stats');
+      if (mobileNavLink) {
+        mobileNavLink.style.display = 'none';
+      }
+    }
   </script>
 
 </body>
